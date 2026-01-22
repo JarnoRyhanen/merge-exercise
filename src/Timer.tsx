@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 /**
  * This timer component displays a countdown timer. The timer starts
  * at 15 minutes and counts down to 0.
@@ -26,6 +27,8 @@ export default function Timer() {
 
     const timeString = `${leftPad(minutes)}:${leftPad(seconds)}`;
 
+    const adjustTime = (diff: number) => setTimeLeft(time => Math.max(time + diff, 0));
+
     return (
         <div>
             <section>
@@ -33,6 +36,18 @@ export default function Timer() {
             </section>
             <section>
                 <button onClick={() => setRunning(!running)}>{running ? 'Pause' : 'Start'}</button>
+            </section>
+
+            <section role="group">
+                <button className="outline" onClick={() => adjustTime(+300)}>+5 min</button>
+                <button className="outline" onClick={() => adjustTime(+60)}>+1 min</button>
+                <button className="outline" onClick={() => adjustTime(+30)}>+30 sec</button>
+            </section>
+
+            <section role="group">
+                <button className="outline" onClick={() => adjustTime(-300)}>-5 min</button>
+                <button className="outline" onClick={() => adjustTime(-60)}>-1 min</button>
+                <button className="outline" onClick={() => adjustTime(-30)}>-30 sec</button>
             </section>
         </div>
     );
